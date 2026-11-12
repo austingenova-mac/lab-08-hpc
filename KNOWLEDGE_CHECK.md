@@ -12,6 +12,8 @@ Redirect the command's output to `results/job-history.txt` and include the file 
 
 **Your answer:** Provide the entire command you used, including all CLI options.
 
+sacct -X -S 2026-11-04 --format=JobID,JobName,NodeList,Partition,State,Start,End,Elapsed,ExitCode > results/job-history.txt
+
 ...
 
 ## 2. Slurm: did every array task run at the same time?
@@ -24,6 +26,7 @@ You submitted your entire job array with one `sbatch` command, but Slurm schedul
 
 **Your answer:** Did all tasks in the array start at the same time? Was the elapsed time identical for every task? Explain why or why not.
 
+No the tasks did not all start at the same time, when we look at task 22831177 we can see that it started around 18:22 and finished at 18:50 with the task running accross 18 waves. the elapsed times were similar but not identical with roughly 13 to 18 seconds of rruntime. 
 ...
 
 ## 3. Slurm: did my job use what it asked for?
@@ -34,7 +37,8 @@ Suppose your next job array has 1,000 books instead of 101. Before you submit it
 
 *Hint:* `seff` takes the ID of one task, such as `4211873_1`. Compare its **Memory Utilized** and **Job Wall-clock time** with `--mem` and `--time` in your `summarize.slurm`.
 
-**Your answer:** How much memory and time did the task use, compared with what your script asked for? What would you change in your script, and why?
+**Your answer:** How much memory and time did the task use, compared with what your script asked for? What would you change in your script, and why?         
 
+for my main task it used roughly 2.59gb of memory which is 16% of the 16gb allocated from the original script. Time wise it was 16 seconds per task which was about 5% of the 5 minute limute that was set. for a 1000 book task instead of 101 I wouldnt increase the memory as each task is still going to use the 2.59gb so it would be better to lower the memory and time requirements. 
 ...
 
